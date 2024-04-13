@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
+import { AppState } from '../Context/AgriProvider';
 function Signup() {
 
     const [data, setData] = useState({
@@ -9,6 +10,8 @@ function Signup() {
         email: '',
         password: ''
     });
+
+    const { user } = AppState();
 
     const [confirmPassword, setConfirmPassword] = useState('')
     const navigate = useNavigate();
@@ -31,6 +34,11 @@ function Signup() {
     // Disable submit button until all fields are filled in
     const canSubmit = [username, email, password].every(Boolean);
 
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user]);
 
     return (
         <div className="flex items-center justify-center w-full h-[90vh] bg-black bg-opacity-10 backdrop-blur-sm">

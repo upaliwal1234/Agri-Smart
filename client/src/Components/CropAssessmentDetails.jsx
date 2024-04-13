@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 function CropAssessmentDetails({ data }) {
-    const [crops, setCrops] = useState([]);
+    const [crops, setCrops] = useState(data);
 
     return (
         <div className="container mx-auto px-4 py-8">
