@@ -1,28 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
+const User = require('../model/User');
 const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET || "hi";
 const bcrypt = require('bcrypt')
 
 router.post('/signup', async (req, res) => {
-    // console.log(req.body);
-    const { name, email, password, confirmPassword } = req.body;
-    if (!(name && email && password && confirmPassword)) {
-        // console.log("All Fields Are Necessary")
+    const { username, email, password } = req.body;
+    if (!(username && email && password)) {
         return res.status(400).send("All Fields are necessary");
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        // console.log("Already exists")
         return res.status(401).send("User With This Name Already Exists");
     }
-    else if (password == confirmPassword) {
+    else {
         try {
             const salt = bcrypt.genSaltSync(10);
             const myEncPassword = bcrypt.hashSync(password, salt);
             const user = await User.create({
-                name: name,
+                username: username,
                 email: email,
                 password: myEncPassword
             });
@@ -38,22 +35,20 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!(email && password)) {
-            // console.log("All Fields Are Necessary")
             return res.status(400).send("All details are necessary")
         }
         const user = await User.findOne({ email: email })
         if (!user) {
-            // console.log("Not exists")
             return res.status(401).send("User does not exists")
         }
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign(
                 {
-                    id: user._id, email//payload
+                    id: user._id, email
                 },
-                secret,//process.env.jwtsecret (secretKey) 
+                secret,
                 {
-                    expiresIn: "2h" //extra optional 
+                    expiresIn: "2h"
                 }
             );
             user.password = undefined;
