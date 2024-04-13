@@ -4,7 +4,6 @@ const Inventory = require('../model/Inventory');
 const Expenditure = require('../model/Expenditure');
 const Sales = require('../model/Sales');
 
-// GET all inventory items
 router.get('/inventory', async (req, res) => {
     try {
       const inventoryItems = await Inventory.find();
@@ -15,7 +14,6 @@ router.get('/inventory', async (req, res) => {
     }
   });
   
-  // POST a new inventory item
   router.post('/inventory', async (req, res) => {
     try {
       const { cropName, amount, season, year } = req.body;
@@ -33,8 +31,7 @@ router.get('/inventory', async (req, res) => {
   });
   
 
-// GET all expenditure records
-router.get('/', async (req, res) => {
+router.get('/expenditure', async (req, res) => {
     try {
       const expenditureRecords = await Expenditure.find();
       res.json(expenditureRecords);
@@ -44,22 +41,15 @@ router.get('/', async (req, res) => {
     }
   });
   
-  // POST a new expenditure record
-  router.post('/', async (req, res) => {
+  router.post('/expenditure', async (req, res) => {
     try {
       const { cropName, expenditure, season, year } = req.body;
-  
-      // Create a new expenditure record
-      const newExpenditureRecord = await Expenditure.create({
-        cropName,
-        expenditure,
-        season,
-        year
+        const newExpenditureRecord = await Expenditure.create({
+        cropName: cropName,
+        expenditure: expenditure,
+        season: season,
+        year: year,
       });
-  
-      // Save the new expenditure record to the database
-      await newExpenditureRecord.save();
-  
       res.status(201).json({ message: 'Expenditure record added successfully' });
     } catch (err) {
       console.error(err);
@@ -67,7 +57,6 @@ router.get('/', async (req, res) => {
     }
   });
 
-// GET all sales records
 router.get('/sales', async (req, res) => {
     try {
       const salesRecords = await Sales.find();
@@ -78,22 +67,15 @@ router.get('/sales', async (req, res) => {
     }
   });
   
-  // POST a new sales record
   router.post('/sales', async (req, res) => {
     try {
       const { cropName, sales, season, year } = req.body;
-  
-      // Create a new sales record
-      const newSalesRecord = await Sales.create({
-        cropName,
-        sales,
-        season,
-        year
+        const newSalesRecord = await Sales.create({
+        cropName: cropName,
+        sales: sales,
+        season: season,
+        year: year,
       });
-  
-      // Save the new sales record to the database
-      await newSalesRecord.save();
-  
       res.status(201).json({ message: 'Sales record added successfully' });
     } catch (err) {
       console.error(err);
