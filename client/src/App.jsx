@@ -8,6 +8,8 @@ import CropAssessment from './Pages/CropAssessment'
 import WeatherInfo from './Pages/WeatherInfo'
 import IrrigationInfo from './Pages/IrrigationInfo'
 import ResourceManagement from './Pages/ResourceManagement'
+import CropAssessmentDetails from './Components/CropAssessmentDetails'
+import WeatherInfo from './Components/WeatherInfo'
 function App() {
 
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path='/weatherinfo' element={<WeatherInfo />} />
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
         <Route path='/resourcemanagement' element={<ResourceManagement />} />
+        <Route path='/cropAssessmentDetails' element={<CropAssessmentDetails />} />
+        <Route path='/weatherInfo' element={<WeatherInfo />} />
       </Routes>
     </div>
   )
