@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
+import { AppState } from '../Context/AgriProvider';
 function Login() {
 
     const [data, setData] = useState({
         email: '',
         password: ''
     });
+
+    const { user } = AppState();
 
     const navigate = useNavigate();
     const parseJwt = (token) => {
@@ -30,7 +33,7 @@ function Login() {
                     email: decodedToken.email
                 });
                 if (tokenString) {
-                    window.localStorage.setItem('myToken', tokenString);
+                    window.localStorage.setItem('agriSmart', tokenString);
                     navigate('/');
                     window.location.reload(false);
                 }
@@ -40,6 +43,11 @@ function Login() {
         }
     };
 
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user])
     return (
         <div className="flex items-center justify-center w-full h-[90vh] bg-black bg-opacity-10 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-md  bg-white px-6 py-6 shadow-md sm:rounded-lg">
