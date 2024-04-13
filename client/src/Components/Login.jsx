@@ -21,7 +21,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            let response = await axios.post(`${baseURL}/api/login`, data);
+            let response = await axios.post(`${baseURL}/api/user/login`, data);
             if (response && response.data) {
                 const token = response.data.token;
                 const decodedToken = parseJwt(token);

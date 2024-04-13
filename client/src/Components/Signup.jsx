@@ -5,7 +5,7 @@ import baseURL from '../DB';
 function Signup() {
 
     const [data, setData] = useState({
-        name: '',
+        username: '',
         email: '',
         password: ''
     });
@@ -15,7 +15,7 @@ function Signup() {
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            let response = await axios.post(`${baseURL}/register`, data);
+            let response = await axios.post(`${baseURL}/api/user/signup`, data);
             if (response) {
                 navigate('/login');
             }
@@ -26,10 +26,10 @@ function Signup() {
     };
 
     // Destructure data
-    const { name, email, password } = data;
+    const { username, email, password } = data;
 
     // Disable submit button until all fields are filled in
-    const canSubmit = [name, email, password].every(Boolean);
+    const canSubmit = [username, email, password].every(Boolean);
 
 
     return (
@@ -44,15 +44,16 @@ function Signup() {
                 >
                     <div>
                         <label
-                            htmlFor="name"
+                            htmlFor="username"
                             className="mb-2 block text-sm font-medium text-gray-900 "
                         >
                             Name
                         </label>
                         <div className="flex flex-col items-start">
                             <input
+                                id='username'
                                 type="text"
-                                name="name"
+                                name="username"
                                 placeholder="Name"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
                                 pattern="[a-zA-Z ]{2,}"
@@ -60,7 +61,7 @@ function Signup() {
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        name: e.target.value
+                                        username: e.target.value
                                     });
                                 }}
                             />

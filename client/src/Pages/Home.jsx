@@ -4,13 +4,13 @@ import { tokenCheck } from "../HelperToken";
 import { Link } from "react-router-dom";
 
 function Home() {
-    // const navigate = useNavigate();
-    // useEffect(() => {
-    //     const token = tokenCheck();
-    // if (!token) {
-    //     navigate('/login')
-    // }
-    // }, [])
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = tokenCheck();
+        if (!token) {
+            navigate('/login')
+        }
+    }, [])
     return (
         <div className="">
             <h1 className="text-4xl font-bold text-center my-5">Home</h1>
