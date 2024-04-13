@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./userRoutes');
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI)

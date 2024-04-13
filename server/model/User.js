@@ -31,11 +31,16 @@ const userSchema = new mongoose.Schema({
   crops: [{
     type: String
   }],
-  location: {
+  cityName: {
     type: String
+  },
+  stateCode: {
+    type: String,
+  },
+  countryCode: {
+    type: String,
   }
 });
-
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
