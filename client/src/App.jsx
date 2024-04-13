@@ -8,7 +8,9 @@ import CropAssessment from './Pages/CropAssessment'
 import WeatherInfo from './Pages/WeatherInfo'
 import IrrigationInfo from './Pages/IrrigationInfo'
 import ResourceManagement from './Pages/ResourceManagement'
-// import WeatherInfo from './Components/WeatherInfo'
+import WeatherInfo from './Components/WeatherInfo'
+import ResourceManagement from './Components/ResourceManagement'
+import Profile from './Components/Profile';
 function App() {
 
   return (
@@ -22,7 +24,9 @@ function App() {
         <Route path='/weatherinfo' element={<WeatherInfo />} />
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
         <Route path='/resourcemanagement' element={<ResourceManagement />} />
-        {/* <Route path='/weatherInfo' element={<WeatherInfo />} /> */}
+        <Route path='/weatherInfo' element={<WeatherInfo />} />
+        <Route path='/resourceManagement' element={<ResourceManagement />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   )
