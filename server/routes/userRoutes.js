@@ -6,15 +6,15 @@ const secret = process.env.JWT_SECRET || "hi";
 const bcrypt = require('bcrypt')
 
 router.post('/signup', async (req, res) => {
-    const { username, email, password, confirmPassword } = req.body;
-    if (!(username && email && password && confirmPassword)) {
+    const { username, email, password } = req.body;
+    if (!(username && email && password)) {
         return res.status(400).send("All Fields are necessary");
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        return res.status(401).send("User With This Name Already Exists");
+        return res.status(401).send("User With This Email Already Exists");
     }
-    else if (password == confirmPassword) {
+    else {
         try {
             const salt = bcrypt.genSaltSync(10);
             const myEncPassword = bcrypt.hashSync(password, salt);
