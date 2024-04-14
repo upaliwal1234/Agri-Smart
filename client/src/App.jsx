@@ -9,8 +9,6 @@ import WeatherInfo from './Pages/WeatherInfo'
 import IrrigationInfo from './Pages/IrrigationInfo'
 import ResourceManagement from './Pages/ResourceManagement'
 import CropAssessmentDetails from './Components/CropAssessmentDetails'
-import WeatherInfo from './Components/WeatherInfo'
-import ResourceManagement from './Components/ResourceManagement'
 import Profile from './Components/Profile';
 function App() {
 
