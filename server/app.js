@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const inventoryRoutes = require('./routes/inventoryRoutes');
+const mlRoutes = require('./routes/mlRoutes');
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI)
@@ -13,6 +15,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(express.json())
 app.use('/api/user', userRoutes);
 app.use('/api/analysis', inventoryRoutes);
+app.use('/api/predict', mlRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, (err) => {

@@ -1,22 +1,30 @@
 {
-  "name": "agri-smart",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server/app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "machinelearn": "^2.1.5",
+    "ml-naivebayes": "^4.0.0",
     "mongoose": "^8.3.1",
-    "nodemon": "^3.1.0"
+    "naive-bayes-classifier": "^0.5.0",
+    "node-pickle": "^0.0.2",
+    "nodemon": "^3.1.0",
+    "numjs": "^0.16.1",
+    "pickleparser": "^0.2.1"
   }
 }
