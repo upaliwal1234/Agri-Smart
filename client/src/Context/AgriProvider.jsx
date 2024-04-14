@@ -7,6 +7,7 @@ const AppContext = createContext();
 
 function AgriProvider({ children }) {
     const [user, setUser] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         const userInfo = tokenCheck();
@@ -17,7 +18,9 @@ function AgriProvider({ children }) {
         <AppContext.Provider
             value={{
                 user,
-                setUser
+                setUser,
+                isLoading,
+                setIsLoading
             }}
         >{children}</AppContext.Provider>
     )

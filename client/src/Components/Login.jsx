@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
+import { AppState } from '../Context/AgriProvider';
+import { toast } from 'react-toastify'
 function Login() {
 
     const [data, setData] = useState({
         email: '',
         password: ''
     });
+
+    const { user, setIsLoading } = AppState();
 
     const navigate = useNavigate();
     const parseJwt = (token) => {
@@ -19,6 +23,7 @@ function Login() {
     };
 
     const handleLogin = async (e) => {
+        setIsLoading(true);
         e.preventDefault();
         try {
             let response = await axios.post(`${baseURL}/api/user/login`, data);
@@ -30,16 +35,29 @@ function Login() {
                     email: decodedToken.email
                 });
                 if (tokenString) {
-                    window.localStorage.setItem('myToken', tokenString);
+                    window.localStorage.setItem('agriSmart', tokenString);
+                    setIsLoading(false);
                     navigate('/');
                     window.location.reload(false);
                 }
             }
         } catch (error) {
+            setIsLoading(false);
+            if (error.request && error.request.status === 0) {
+                toast.error(error.message)
+            }
+            else {
+                toast.error(error.request.response)
+            }
             console.log(error);
         }
     };
 
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user])
     return (
         <div className="flex items-center justify-center w-full h-[90vh] bg-black bg-opacity-10 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-md  bg-white px-6 py-6 shadow-md sm:rounded-lg">

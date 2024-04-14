@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
+import { AppState } from '../Context/AgriProvider';
+import { toast } from 'react-toastify';
 function Signup() {
 
     const [data, setData] = useState({
@@ -10,16 +12,27 @@ function Signup() {
         password: ''
     });
 
+    const { user, setIsLoading } = AppState();
+
     const [confirmPassword, setConfirmPassword] = useState('')
     const navigate = useNavigate();
     const handleRegistration = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             let response = await axios.post(`${baseURL}/api/user/signup`, data);
             if (response) {
+                setIsLoading(false);
                 navigate('/login');
             }
         } catch (error) {
+            setIsLoading(false);
+            if (error.request && error.request.status === 0) {
+                toast.error(error.message)
+            }
+            else {
+                toast.error(error.request.response)
+            }
             console.log(error);
         }
         console.log(data);
@@ -31,6 +44,11 @@ function Signup() {
     // Disable submit button until all fields are filled in
     const canSubmit = [username, email, password].every(Boolean);
 
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user]);
 
     return (
         <div className="flex items-center justify-center w-full h-[90vh] bg-black bg-opacity-10 backdrop-blur-sm">

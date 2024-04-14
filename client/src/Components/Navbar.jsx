@@ -14,7 +14,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [logoutMenu, setLogoutMenu] = useState(false);
     const handleLogout = () => {
-        localStorage.removeItem('myToken');
+        localStorage.removeItem('agriSmart');
         setLoggedIn(false);
         setLogoutMenu(false);
         navigate('/login')
