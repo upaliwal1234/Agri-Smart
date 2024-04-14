@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
 import { AppState } from '../Context/AgriProvider';
+import { toast } from 'react-toastify'
 function Login() {
 
     const [data, setData] = useState({
@@ -10,7 +11,7 @@ function Login() {
         password: ''
     });
 
-    const { user } = AppState();
+    const { user, setIsLoading } = AppState();
 
     const navigate = useNavigate();
     const parseJwt = (token) => {
@@ -22,6 +23,7 @@ function Login() {
     };
 
     const handleLogin = async (e) => {
+        setIsLoading(true);
         e.preventDefault();
         try {
             let response = await axios.post(`${baseURL}/api/user/login`, data);
@@ -34,11 +36,19 @@ function Login() {
                 });
                 if (tokenString) {
                     window.localStorage.setItem('agriSmart', tokenString);
+                    setIsLoading(false);
                     navigate('/');
                     window.location.reload(false);
                 }
             }
         } catch (error) {
+            setIsLoading(false);
+            if (error.request && error.request.status === 0) {
+                toast.error(error.message)
+            }
+            else {
+                toast.error(error.request.response)
+            }
             console.log(error);
         }
     };

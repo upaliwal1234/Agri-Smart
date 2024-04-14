@@ -1,10 +1,15 @@
 import { useState } from "react";
-
+import { AppState } from '../Context/AgriProvider';
 function CropAssessmentForm({ setCrops }) {
-    const [data, setData] = useState();
-    const [canSubmit, setCanSubmit] = useState(false);
-    const handleSearch = () => {
-
+    const [data, setData] = useState({});
+    const { user, setIsLoading } = AppState();
+    const canSubmit = Object.values(data).every(Boolean);
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
     }
     return (
         <div className="flex items-center justify-center w-full">
@@ -157,7 +162,7 @@ function CropAssessmentForm({ setCrops }) {
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        potassium: e.target.value
+                                        temperature: e.target.value
                                     });
                                 }}
                             />
@@ -168,17 +173,17 @@ function CropAssessmentForm({ setCrops }) {
                     </div>
                     <div className="mt-4">
                         <label
-                            htmlFor="potassium"
+                            htmlFor="humidity"
                             className="mb-2 block text-sm font-medium text-gray-900 "
                         >
-                            Potassium
+                            Humidity
                         </label>
                         <div className="flex flex-col items-start">
                             <input
-                                id='potassium'
+                                id='humidity'
                                 type="number"
-                                name="potassium"
-                                placeholder="Potassium Percent in the soil"
+                                name="humidity"
+                                placeholder="Humidity Percent in the atmosphere"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
@@ -187,7 +192,7 @@ function CropAssessmentForm({ setCrops }) {
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        potassium: e.target.value
+                                        humidity: e.target.value
                                     });
                                 }}
                             />
@@ -198,17 +203,17 @@ function CropAssessmentForm({ setCrops }) {
                     </div>
                     <div className="mt-4">
                         <label
-                            htmlFor="potassium"
+                            htmlFor="rainfall"
                             className="mb-2 block text-sm font-medium text-gray-900 "
                         >
-                            Potassium
+                            Rainfall
                         </label>
                         <div className="flex flex-col items-start">
                             <input
-                                id='potassium'
+                                id='rainfall'
                                 type="number"
-                                name="potassium"
-                                placeholder="Potassium Percent in the soil"
+                                name="rainfall"
+                                placeholder="Rainfall in mm"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
@@ -232,7 +237,7 @@ function CropAssessmentForm({ setCrops }) {
                             disabled={!canSubmit}
                             className="mt-2 w-full rounded-lg bg-[#2b9348] px-5 py-3 text-center text-sm font-medium text-white hover:bg-[#007f5f] focus:outline-none focus:ring-1 focus:ring-blue-300 disabled:cursor-not-allowed disabled:bg-gradient-to-br disabled:from-gray-100 disabled:to-gray-300 disabled:text-gray-400 group-invalid:pointer-events-none group-invalid:bg-gradient-to-br group-invalid:from-gray-100 group-invalid:to-gray-300 group-invalid:text-gray-400 group-invalid:opacity-70"
                         >
-                            Create account
+                            Search
                         </button>
                     </div>
                 </form>

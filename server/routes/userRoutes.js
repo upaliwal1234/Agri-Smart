@@ -12,7 +12,7 @@ router.post('/signup', async (req, res) => {
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        return res.status(401).send("User With This Name Already Exists");
+        return res.status(401).send("User With This Email Already Exists");
     }
     else {
         try {

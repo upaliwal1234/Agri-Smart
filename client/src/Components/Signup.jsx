@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import baseURL from '../DB';
 import { AppState } from '../Context/AgriProvider';
+import { toast } from 'react-toastify';
 function Signup() {
 
     const [data, setData] = useState({
@@ -11,18 +12,27 @@ function Signup() {
         password: ''
     });
 
-    const { user } = AppState();
+    const { user, setIsLoading } = AppState();
 
     const [confirmPassword, setConfirmPassword] = useState('')
     const navigate = useNavigate();
     const handleRegistration = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             let response = await axios.post(`${baseURL}/api/user/signup`, data);
             if (response) {
+                setIsLoading(false);
                 navigate('/login');
             }
         } catch (error) {
+            setIsLoading(false);
+            if (error.request && error.request.status === 0) {
+                toast.error(error.message)
+            }
+            else {
+                toast.error(error.request.response)
+            }
             console.log(error);
         }
         console.log(data);

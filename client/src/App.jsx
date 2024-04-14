@@ -8,11 +8,35 @@ import CropAssessment from './Pages/CropAssessment'
 import WeatherInfo from './Pages/WeatherInfo'
 import IrrigationInfo from './Pages/IrrigationInfo'
 import ResourceManagement from './Pages/ResourceManagement'
-import Profile from './Components/Profile';
+import Profile from './Components/Profile'
+import { AppState } from './Context/AgriProvider'
+import Lottie from 'react-lottie'
+import animationData from './animations/loadingSpinner.json'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
+  const { isLoading } = AppState();
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   return (
     <div className='min-h-[100vh] w-full bg-black bg-opacity-10 backdrop-blur-sm'>
+      {isLoading ? (
+        <div className='flex z-[100] items-center justify-center fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm'>
+          <div className='flex w-full items-center py-10 justify-center'>
+            <Lottie
+              options={defaultOptions}
+              width={300}
+            />
+          </div>
+        </div>) : (<div />)}
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -26,7 +50,8 @@ function App() {
         <Route path='/resourceManagement' element={<ResourceManagement />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
-    </div>
+      <ToastContainer />
+    </div >
   )
 }
 
