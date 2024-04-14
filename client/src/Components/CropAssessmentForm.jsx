@@ -1,15 +1,48 @@
 import { useState } from "react";
 import { AppState } from '../Context/AgriProvider';
+import axios from "axios";
+import { toast } from 'react-toastify'
+import baseURL from "../DB";
 function CropAssessmentForm({ setCrops }) {
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        nitrogen: '',
+        phosphorous: '',
+        potassium: '',
+        temperature: '',
+        humidity: '',
+        PH: '',
+        rainfall: ''
+    });
     const { user, setIsLoading } = AppState();
     const canSubmit = Object.values(data).every(Boolean);
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
+        try {
+            console.log(data);
+            const { data: resData } = await axios.post(`${baseURL}/api/predict/croppredict`, {
+                N: data.nitrogen,
+                P: data.phosphorous,
+                K: data.potassium,
+                temperature: data.temperature,
+                humidity: data.humidity,
+                ph: data.PH,
+                rainfall: data.rainfall
+            });
+            if (resData && resData.prediction) {
+                console.log(resData);
+                setCrops(data)
+            }
+        } catch (error) {
             setIsLoading(false);
-        }, 3000);
+            if (error.request && error.request.status === 0) {
+                toast.error(error.message)
+            }
+            else {
+                toast.error(error.request.response)
+            }
+            console.log(error);
+        }
     }
     return (
         <div className="flex items-center justify-center w-full">
@@ -32,12 +65,12 @@ function CropAssessmentForm({ setCrops }) {
                             <input
                                 id='nitrogen'
                                 type="number"
+                                step="0.001"
                                 name="nitrogen"
                                 placeholder="Nitrogen Percent in the soil"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -62,12 +95,12 @@ function CropAssessmentForm({ setCrops }) {
                             <input
                                 id='potassium'
                                 type="number"
+                                step="0.001"
                                 name="potassium"
                                 placeholder="Potassium Percent in the soil"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -92,12 +125,12 @@ function CropAssessmentForm({ setCrops }) {
                             <input
                                 id='phosphorous'
                                 type="number"
+                                step="0.001"
                                 name="phosphorous"
                                 placeholder="Phosphorous Percent in the soil"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -126,8 +159,8 @@ function CropAssessmentForm({ setCrops }) {
                                 placeholder="pH of the soil"
                                 min="0"
                                 max="14"
+                                step="0.1"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -137,7 +170,7 @@ function CropAssessmentForm({ setCrops }) {
                                 }}
                             />
                             <span className="mt-1 hidden text-sm text-red-400">
-                                Value should be between 0 and 14
+                                Value should be between 0 and 14 and upto 1 decimal place
                             </span>
                         </div>
                     </div>
@@ -152,12 +185,12 @@ function CropAssessmentForm({ setCrops }) {
                             <input
                                 id='temperature'
                                 type="number"
+                                step="0.001"
                                 name="temperature"
                                 placeholder="Average Temperature of the Area in ºCelcius"
                                 min="-100"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[-9-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -183,11 +216,11 @@ function CropAssessmentForm({ setCrops }) {
                                 id='humidity'
                                 type="number"
                                 name="humidity"
+                                step="0.001"
                                 placeholder="Humidity Percent in the atmosphere"
                                 min="0"
                                 max="100"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
@@ -215,19 +248,18 @@ function CropAssessmentForm({ setCrops }) {
                                 name="rainfall"
                                 placeholder="Rainfall in mm"
                                 min="0"
-                                max="100"
+                                max="1000000"
                                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-red-500 focus:ring-red-500   [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                pattern="[0-9]{1,}"
                                 required
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        potassium: e.target.value
+                                        rainfall: e.target.value
                                     });
                                 }}
                             />
                             <span className="mt-1 hidden text-sm text-red-400">
-                                Value should be between 0 and 100
+                                Please enter a valid value of reainfall in mm
                             </span>
                         </div>
                     </div>
