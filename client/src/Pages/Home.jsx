@@ -41,7 +41,7 @@ function Home() {
                             </Link>
                         </div>
                         <div className="flex justify-center items-center w-1/2 bg-cover  bg-[url('https://st3.depositphotos.com/1177973/16777/i/450/depositphotos_167777246-stock-photo-woman-holding-wheat-spikelets-in.jpg')] h-full rounded-lg hover:bg-opacity-60 hover:scale-105 hover:transform hover:duration-300">
-                            <Link to='/resourcemanagement' className="w-full h-full">
+                            <Link to='/resourceManagement' className="w-full h-full">
                                 <div className="flex justify-center items-center w-full h-full rounded-lg bg-black bg-opacity-30 hover:bg-opacity-60 ">
                                     <h1 className="text:xl md:text-2xl lg:text-3xl font-bold">Resource Management Info.</h1>
                                 </div>
