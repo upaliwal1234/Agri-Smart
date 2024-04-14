@@ -13,13 +13,15 @@ function CropAssessment() {
         { id: '127', name: 'Rice', imageURL: 'image.png', details: 'rice crop' },
         { id: '128', name: 'Rice', imageURL: 'image.png', details: 'rice crop' },
     ];
-    const [crops, setCrops] = useState(data);
-
+    const [crops, setCrops] = useState();
+    // console.log(crops);
     return (
         <div>
-            <CropAssessmentForm setCrops={setCrops} />
-            {/* <CropAssessmentDetails data={data} /> */}
-
+            {crops ? (
+                <CropAssessmentDetails crops={crops} setCrops={setCrops} />
+            ) : (
+                <CropAssessmentForm setCrops={setCrops} />
+            )}
         </div>
     )
 }

@@ -30,8 +30,8 @@ function CropAssessmentForm({ setCrops }) {
                 rainfall: data.rainfall
             });
             if (resData && resData.prediction) {
-                console.log(resData);
-                setCrops(data)
+                setCrops(resData)
+                setIsLoading(false);
             }
         } catch (error) {
             setIsLoading(false);
