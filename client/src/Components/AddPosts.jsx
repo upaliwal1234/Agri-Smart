@@ -22,7 +22,6 @@ function AddPosts() {
         try {
             const response = await axios.post(`${baseURL}/api/posts/addPost`, {
                 id: user.id,
-                name: name,
                 title: title,
                 text: text
             });
@@ -51,7 +50,7 @@ function AddPosts() {
                     onSubmit={handleAddPost}
                     className="group"
                 >
-                    
+
                     <div className="mt-4">
                         <label
                             htmlFor="title"
