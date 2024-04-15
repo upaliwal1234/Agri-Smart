@@ -54,6 +54,7 @@ function App() {
         <Route path='/communityforum' element={<CommunityForum />} />
         <Route path='/communityforum/addpost' element={<AddPosts />} />
         <Route path='/communityforum/post/:id' element={<Post />} />
+        <Route path='/irrigationinfo' element={<IrrigationInfo />} />
       </Routes>
       <ToastContainer />
     </div >
