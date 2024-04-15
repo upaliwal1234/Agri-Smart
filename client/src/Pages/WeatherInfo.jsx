@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AppState } from '../Context/AgriProvider';
 function WeatherInfo() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     let [startDate, setstartDate] = useState('');
     let [endDate, setendDate] = useState('');
+    const { setIsLoading } = AppState();
     const handleStartDate = (e) => {
         setstartDate(e.target.value);
     }
@@ -15,30 +17,37 @@ function WeatherInfo() {
         setendDate(e.target.value);
     }
     const fetchData = async () => {
+        setIsLoading(true);
         try {
             const response = await axios.get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Jaipur,India/2024-04-14/2024-04-15?key=LWDB3C2U2TTNPDA5VW4NGD8BK');
             if (!response.data) {
+                setIsLoading(false);
                 navigate('/');
             } else {
                 setData(response.data.days);
+                setIsLoading(false);
             }
         } catch (error) {
+            setIsLoading(false);
             console.error("Error fetching data:", error);
         }
     };
     const handleButtonClick = async () => {
         try {
-        
+            setIsLoading(true);
             // Make the API request with the formatted dates
             const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Jaipur,India/${startDate}/${endDate}?key=LWDB3C2U2TTNPDA5VW4NGD8BK`);
 
             // Check if data is returned
             if (!response.data) {
+                setIsLoading(false);
                 navigate('/');
             } else {
+                setIsLoading(false);
                 setData(response.data.days);
             }
         } catch (error) {
+            setIsLoading(false);
             console.error("Error fetching data:", error);
         }
     };

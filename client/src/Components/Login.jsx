@@ -32,10 +32,11 @@ function Login() {
                 const decodedToken = parseJwt(token);
                 const tokenString = JSON.stringify({
                     id: decodedToken.id,
-                    email: decodedToken.email
+                    email: decodedToken.email,
+
                 });
                 if (tokenString) {
-                    window.localStorage.setItem('agriSmart', tokenString);
+                    window.localStorage.setItem('agriSmart', JSON.stringify(decodedToken));
                     setIsLoading(false);
                     navigate('/');
                     window.location.reload(false);
