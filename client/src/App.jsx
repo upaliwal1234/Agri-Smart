@@ -17,6 +17,7 @@ import AddPosts from './Components/AddPosts'
 import 'react-toastify/dist/ReactToastify.css';
 import CommunityForum from './Pages/CommunityForum'
 
+
 function App() {
   const { isLoading } = AppState();
   const defaultOptions = {
@@ -52,6 +53,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/communityforum' element={<CommunityForum />} />
         <Route path='/addpost' element={<AddPosts />} />
+        <Route path='/irrigationinfo' element={<IrrigationInfo />} />
       </Routes>
       <ToastContainer />
     </div >
