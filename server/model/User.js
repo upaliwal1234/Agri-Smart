@@ -39,7 +39,13 @@ const userSchema = new mongoose.Schema({
   },
   countryCode: {
     type: String,
-  }
+  },
+  posts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Posts'
+    }
+  ]
 });
 const User = mongoose.model('User', userSchema);
 
