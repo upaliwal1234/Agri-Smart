@@ -28,7 +28,7 @@ function Navbar() {
                 <div className={`md:w-1/3 text-xl flex flex-row justify-center md:gap-10 ${loggedIn ? '' : 'hidden'}`}>
                     <NavLink to='/'>Home</NavLink>
                     <NavLink>Inventory</NavLink>
-                    <NavLink>Community Forum</NavLink>
+                    <NavLink to='/communityforum'>Community Forum</NavLink>
                 </div>
                 <div className='md:w-1/3 text-xl flex flex-row justify-center md:gap-10'>
                     {loggedIn ? (

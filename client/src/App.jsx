@@ -15,6 +15,7 @@ import animationData from './animations/loadingSpinner.json'
 import { ToastContainer } from 'react-toastify';
 import AddPosts from './Components/AddPosts'
 import 'react-toastify/dist/ReactToastify.css';
+import CommunityForum from './Pages/CommunityForum'
 
 function App() {
   const { isLoading } = AppState();
@@ -48,8 +49,8 @@ function App() {
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
         <Route path='/resourcemanagement' element={<ResourceManagement />} />
         <Route path='/weatherInfo' element={<WeatherInfo />} />
-        <Route path='/resourceManagement' element={<ResourceManagement />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/communityforum' element={<CommunityForum />} />
         <Route path='/addpost' element={<AddPosts />} />
       </Routes>
       <ToastContainer />
