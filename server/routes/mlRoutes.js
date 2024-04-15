@@ -20,26 +20,30 @@ router.post('/croppredict', (req, res) => {
         // Spawn a Python process and execute the script
         const pythonProcess = spawn('python', [pythonScript]);
 
+        let responseData = ''; // Variable to accumulate response data
+
         // Pass features input to Python script
         pythonProcess.stdin.write(featuresJson);
         pythonProcess.stdin.end();
 
         // Read output from Python script
         pythonProcess.stdout.on('data', (data) => {
-            const prediction = data.toString().trim(); // Trim to remove extra whitespace
-            // Send the prediction back to the client
-            res.json({ prediction });
+            responseData += data.toString(); // Accumulate response data
         });
 
         pythonProcess.stderr.on('data', (data) => {
             console.error(data.toString());
-            res.status(500).json({ message: 'Internal server error' });
+            // Don't send response here to avoid multiple responses
         });
 
         pythonProcess.on('exit', (code) => {
             if (code !== 0) {
                 console.error(`Python process exited with code ${code}`);
                 res.status(500).json({ message: 'Internal server error' });
+            } else {
+                // Send the accumulated response back to the client
+                const prediction = responseData.trim(); // Trim to remove extra whitespace
+                res.json({ prediction });
             }
         });
     } catch (error) {
@@ -47,5 +51,6 @@ router.post('/croppredict', (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 module.exports = router;
