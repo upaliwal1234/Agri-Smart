@@ -13,6 +13,7 @@ import { AppState } from './Context/AgriProvider'
 import Lottie from 'react-lottie'
 import animationData from './animations/loadingSpinner.json'
 import { ToastContainer } from 'react-toastify';
+import AddPosts from './Components/AddPosts'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path='/weatherInfo' element={<WeatherInfo />} />
         <Route path='/resourceManagement' element={<ResourceManagement />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/addpost' element={<AddPosts />} />
       </Routes>
       <ToastContainer />
     </div >
