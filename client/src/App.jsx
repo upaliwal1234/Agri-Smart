@@ -52,7 +52,7 @@ function App() {
         <Route path='/weatherInfo' element={<WeatherInfo />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/communityforum' element={<CommunityForum />} />
-        <Route path='/communityforum/communityforum/addpost' element={<AddPosts />} />
+        <Route path='/communityforum/addpost' element={<AddPosts />} />
         <Route path='/communityforum/post/:id' element={<Post />} />
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
       </Routes>

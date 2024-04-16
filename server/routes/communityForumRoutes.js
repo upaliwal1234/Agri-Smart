@@ -21,14 +21,9 @@ router.post('/addPost', async (req, res) => {
         const { id, title, text } = req.body;
         const user = await User.findById(id);
         const response = await Posts.create({ name: user.username, title, text });
-        const { id, title, text } = req.body;
-        const user = await User.findById(id);
-        const response = await Posts.create({ name: user.username, title, text });
         if (!response) {
             return res.status(404).send("Something went wrong")
         }
-        user.posts.push(response);
-        await user.save();
         user.posts.push(response);
         await user.save();
         return res.status(200).send({ response, message: "Post added Successfully" });
@@ -38,7 +33,6 @@ router.post('/addPost', async (req, res) => {
     }
 })
 
-router.get('/getPost/:id', async (req, res) => {
 router.get('/getPost/:id', async (req, res) => {
     try {
         const { id } = req.params;
