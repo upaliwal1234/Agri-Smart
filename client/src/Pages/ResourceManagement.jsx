@@ -2,10 +2,10 @@ function ResourceManagement() {
     return (
         <div className='bg-gray'>
             <div className=" rounded-lg p-6 ">
-                <h2 className="text-xl font-bold mb-4 ">Resource Management Tips</h2>
-                <p className="text-gray-700 mb-4">
+                <h1 className="text-xl text-white font-bold mb-4 ">Resource Management Tips</h1>
+                <h4 className="text-white mb-4">
                     Farmers can optimize resource usage and reduce wastage by implementing the following best practices:
-                </p>
+                </h4>
                 <div className="mb-4 border border-black rounded-lg bg-[#2b9348] flex flex-col justify-center items-center">
                     <h3 className="text-lg text-white font-bold m-2">Efficient Irrigation Methods</h3>
                     <p className="text-white m-2">

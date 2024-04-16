@@ -43,5 +43,10 @@ Developed by Shubham Saurav, Utkarsh Paliwal, Utkarsh Goyal.
 ## Support
 For support, contact ukgoyal123@gmail.com.
 
+## Image
+![Home Page](HomePage.png)
+
+![Resource Management](Resource.png)
+
 
 
