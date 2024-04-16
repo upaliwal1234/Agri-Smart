@@ -12,7 +12,6 @@ function ResourceManagement() {
                         Implement drip irrigation systems to minimize water usage. Drip irrigation delivers water directly to the roots of plants, reducing evaporation and runoff.
                     </p>
                 </div>
-
                 <div className="mb-4 border border-black rounded-lg bg-[#2b9348] flex flex-col justify-center items-center">
                     <h3 className="text-lg font-bold text-white m-2">Targeted Fertilizer Application</h3>
                     <p className="text-white m-2">
