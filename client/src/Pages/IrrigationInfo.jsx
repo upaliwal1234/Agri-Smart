@@ -41,6 +41,7 @@ function IrrigationInfo() {
                 let data = response.data;
                 setCrop(data);
                 setSearchTerm('');
+                setSuggestions([]);
             }
         } catch (err) {
             console.error('Error in fetching data', err);

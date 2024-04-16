@@ -9,7 +9,7 @@ function InventoryForm({ setForm }) {
     const [data, setData] = useState({
         cropName: '',
         amount: '',
-        season: '',
+        season: 'rabi',
         year: ''
     });
     const navigate = useNavigate();
@@ -18,14 +18,14 @@ function InventoryForm({ setForm }) {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const { data } = await axios(`${baseURL}/api/analysis/inventory`, {
+            const response = await axios.post(`${baseURL}/api/analysis/inventory`, {
                 userId: user.id,
                 cropName: data.cropName,
                 amount: data.amount,
                 season: data.season,
                 year: data.year
-            })
-            if (data) {
+            });
+            if (response.data) {
                 setIsLoading(false);
                 setForm(false);
             }
@@ -34,13 +34,13 @@ function InventoryForm({ setForm }) {
             setIsLoading(false);
             if (error.request && error.request.status === 0) {
                 toast.error(error.message)
-            }
-            else {
+            } else {
                 toast.error(error.request.response)
             }
             console.log(error);
         }
     }
+    
     return (
         <div className="flex justify-center  min-h-screen">
             <div className='mt-12 w-4/5 sm:w-3/5'>
@@ -72,9 +72,9 @@ function InventoryForm({ setForm }) {
                                     Amount
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <input type="text" id="number" name='email' value={data.amount} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-1.5 " placeholder="Enter Amount" required
+                                    <input type="number" id="amount" name='amount' value={data.amount} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-1.5 " placeholder="Enter Amount" required
                                         onChange={(e) => {
-                                            data.setData({
+                                            setData({
                                                 ...data,
                                                 amount: e.target.value
                                             });
@@ -89,7 +89,7 @@ function InventoryForm({ setForm }) {
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <select id="season" name='season' defaultValue={data.season} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-1.5 " placeholder="Enter Season" required
                                         onChange={(e) => {
-                                            data.setData({
+                                            setData({
                                                 ...data,
                                                 season: e.target.value
                                             });
@@ -108,7 +108,7 @@ function InventoryForm({ setForm }) {
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <input type="year" id="year" name='year' defaultValue={data.year} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-1.5 " placeholder="Enter Year" required
                                         onChange={(e) => {
-                                            data.setData({
+                                            setData({
                                                 ...data,
                                                 year: e.target.value
                                             });

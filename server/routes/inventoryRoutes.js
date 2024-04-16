@@ -20,6 +20,7 @@ router.post('/inventory', async (req, res) => {
     const { cropName, amount, season, year, userId } = req.body;
     const user = await User.findById(userId);
     const newInventoryItem = await Inventory.create({
+      userId: userId,
       cropName: cropName,
       amount: amount,
       season: season,
