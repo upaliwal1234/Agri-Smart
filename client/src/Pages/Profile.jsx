@@ -18,7 +18,7 @@ function Profile() {
     const [email, setEmail] = useState();
 
     const { user, setIsLoading } = AppState();
-    // console.log(user);
+
     const DisplayDetails = async () => {
         setIsLoading(true);
         try {
@@ -41,13 +41,19 @@ function Profile() {
         event.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.patch(`${baseURL}/api/user/profile/edit/${user.id}`, {
+            const { data } = await axios.patch(`${baseURL}/api/user/profile/edit/${user.id}`, {
                 username: User.username,
                 email: User.email,
                 cityName: User.cityName
             })
-            if (response.status == 200) {
-
+            if (data) {
+                let token = localStorage.getItem('agriSmart');
+                token = JSON.parse(token);
+                token.cityName = data.cityName;
+                if (token) {
+                    window.localStorage.removeItem('agriSmart');
+                    window.localStorage.setItem('agriSmart', JSON.stringify(token));
+                }
                 setEdit(false);
                 setIsLoading(false);
                 DisplayDetails();
