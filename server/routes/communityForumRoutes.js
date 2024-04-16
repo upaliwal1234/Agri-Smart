@@ -49,8 +49,9 @@ router.get('/getPost/:id', async (req, res) => {
 
 router.post('/addReply', async (req, res) => {
     try {
-        const { postId, name, text } = req.body;
-        const response = await Reply.create({ name, text });
+        const { postId, userId, text } = req.body;
+        const user = await User.findById(userId);
+        const response = await Reply.create({ name: user.username, text });
         if (!response) {
             return res.status(404).send("Something went wrong");
         }
