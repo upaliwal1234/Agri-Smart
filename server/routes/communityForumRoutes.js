@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Posts = require('../model/Posts');
-const Reply = require('../models/Reply');
+const Reply = require('../model/Reply');
 router.get('/getPosts', async (req, res) => {
     try {
         const response = await Posts.find({}).populate(Reply);
@@ -17,8 +17,9 @@ router.get('/getPosts', async (req, res) => {
 
 router.post('/addPost', async (req, res) => {
     try {
-        const {id ,name, title, text } = req.body;
-        const response = await Posts.create({ name, title, text });
+        const {id , name, title, text } = req.body;
+        console.log(req.body);
+        const response = await Posts.create({name ,title, text });
         if (!response) {
             return res.status(404).send("Something went wrong")
         }
