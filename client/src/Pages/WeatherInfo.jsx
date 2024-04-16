@@ -5,10 +5,15 @@ import axios from 'axios';
 import { AppState } from '../Context/AgriProvider';
 function WeatherInfo() {
     const navigate = useNavigate();
-    const [data, setData] = useState([]);
-    let [startDate, setstartDate] = useState('');
+    let defaultDate = new Date();
+    defaultDate = defaultDate.toLocaleDateString();
+    defaultDate = defaultDate.split('/').reverse().join('-');
+
+    const [data, setData] = useState([{}]);
+    let [startDate, setstartDate] = useState(defaultDate);
     let [endDate, setendDate] = useState('');
-    const { setIsLoading } = AppState();
+    const { user, setIsLoading } = AppState();
+    // console.log(defaultDate);
     const handleStartDate = (e) => {
         setstartDate(e.target.value);
     }
@@ -19,7 +24,13 @@ function WeatherInfo() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Jaipur,India/2024-04-14/2024-04-15?key=LWDB3C2U2TTNPDA5VW4NGD8BK');
+            if (!user) {
+                return;
+            }
+            if (!user.cityName) {
+                navigate('/profile')
+            }
+            // const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${user.cityName},India/${startDate}/${endDate}?key=${import.meta.env.VITE_WEATHER_KEY}`);
             if (!response.data) {
                 setIsLoading(false);
                 navigate('/');
@@ -32,49 +43,33 @@ function WeatherInfo() {
             console.error("Error fetching data:", error);
         }
     };
-    const handleButtonClick = async () => {
-        try {
-            setIsLoading(true);
-            // Make the API request with the formatted dates
-            const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Jaipur,India/${startDate}/${endDate}?key=LWDB3C2U2TTNPDA5VW4NGD8BK`);
-
-            // Check if data is returned
-            if (!response.data) {
-                setIsLoading(false);
-                navigate('/');
-            } else {
-                setIsLoading(false);
-                setData(response.data.days);
-            }
-        } catch (error) {
-            setIsLoading(false);
-            console.error("Error fetching data:", error);
-        }
+    const handleButtonClick = () => {
+        fetchData();
     };
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [user]);
 
     return (
         <div>
             <div className='flex flex-row justify-center'>
                 <div>
                     <label htmlFor="startDate">Start Date:</label>
-                    <input className="p-2 m-2 border border-black" type="date" id="startDate" value={startDate} onChange={handleStartDate} />
+                    <input className="p-2 m-2 border border-black rounded" type="date" id="startDate" value={startDate} onChange={handleStartDate} />
                 </div>
                 <div>
                     <label htmlFor="endDate">End Date:</label>
-                    <input className="p-2 m-2 border border-black" type="date" id="endDate" value={endDate} onChange={handleEndDate} />
+                    <input className="p-2 m-2 border border-black rounded" type="date" id="endDate" value={endDate} onChange={handleEndDate} />
                 </div>
-                <button className="bg-white m-2 w-20 border border-black hover:bg-green-800" onClick={handleButtonClick}>Search</button>
+                <button className="bg-white m-2 w-20 border border-black hover:bg-green-800 rounded-md" onClick={handleButtonClick}>Search</button>
             </div>
             <div className="flex flex-wrap justify-center">
 
                 {data.map((item, index) => (
-                    <div key={index} className="flex flex-row m-2 bg-[#2b9348] rounded-lg justify-around border border-black w-3/5 p-4 hover:bg-green-800">
-                        <h6 className="text-lg  mb-2">Date: {item.datetime}</h6>
-                        <p>Temperature: {((item.tempmax - 32) * 5 / 9).toFixed(2)}°C - {((item.tempmin - 32) * 5 / 9).toFixed(2)}°C</p>
+                    <div key={index} className="flex flex-row m-2 bg-[#2b9348] rounded-lg justify-around items-center border border-black w-3/5 p-4 hover:bg-green-800">
+                        <h6 className="text-md">{item.datetime}</h6>
+                        <p>Temp.: {((item.tempmax - 32) * 5 / 9).toFixed(2)}°C - {((item.tempmin - 32) * 5 / 9).toFixed(2)}°C</p>
 
                         <p>Wind Speed: {item.windspeed}</p>
                         <p>Precipitation: {item.precip + "mm"}</p>

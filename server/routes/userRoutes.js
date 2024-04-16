@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign(
                 {
-                    id: user._id, email
+                    id: user._id, email, cityName: user.cityName
                 },
                 secret,
                 {
@@ -73,7 +73,6 @@ router.get('/profile/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const response = await User.findById(id);
-        console.log(response);
         if (!response) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -81,6 +80,21 @@ router.get('/profile/:id', async (req, res) => {
     }
     catch {
         return res.status(500).json({ message: "Internal Server Error" });
+    }
+})
+
+router.patch('/profile/edit/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const { username, email, cityName } = req.body;
+        const user = await User.findById(userId);
+        user.username = username;
+        user.email = email;
+        user.cityName = cityName;
+        await user.save();
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 })
 

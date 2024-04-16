@@ -30,12 +30,12 @@ function Login() {
             if (response && response.data) {
                 const token = response.data.token;
                 const decodedToken = parseJwt(token);
-                const tokenString = JSON.stringify({
-                    id: decodedToken.id,
-                    email: decodedToken.email,
-
-                });
-                if (tokenString) {
+                // const tokenString = JSON.stringify({
+                //     id: decodedToken.id,
+                //     email: decodedToken.email,
+                //     cityName: decodedToken.cityName
+                // });
+                if (decodedToken) {
                     window.localStorage.setItem('agriSmart', JSON.stringify(decodedToken));
                     setIsLoading(false);
                     navigate('/');

@@ -61,7 +61,7 @@ function Post() {
         fetchPost();
     }, [])
     return (
-        <div className="flex items-center justify-center w-full my-10 ">
+        <div className="flex items-center justify-center w-full py-10 ">
             <div className="w-full md:w-10/12 flex flex-col gap-3 rounded-md  bg-white px-6 py-6 shadow-md sm:rounded-lg">
                 <div className="flex flex-col gap-4 my-3">
                     <div className="flex flex-col sm:flex-row justify-between">

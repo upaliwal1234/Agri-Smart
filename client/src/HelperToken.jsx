@@ -6,11 +6,12 @@ export const tokenCheck = () => {
 
         const id = token.id;
         const email = token.email;
+        const cityName = token.cityName;
 
         if (!id || !email) {
             return false;
         }
-        return { id, email };
+        return { id, email, cityName };
     }
     else {
         return false;

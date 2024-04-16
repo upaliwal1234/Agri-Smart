@@ -20,7 +20,7 @@ app.use(express.json())
 app.use('/api/user', userRoutes);
 app.use('/api/analysis', inventoryRoutes);
 app.use('/api/predict', mlRoutes);
-app.use('/api/posts',communityForumRoutes);
+app.use('/api/posts', communityForumRoutes);
 app.use('/api/irrigation', irrigationRoutes);
 
 const PORT = process.env.PORT;

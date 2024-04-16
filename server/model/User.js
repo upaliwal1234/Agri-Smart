@@ -14,23 +14,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  soilInfo: {
-    nitrogen: {
-      type: Number,
-    },
-    phosphorus: {
-      type: Number,
-    },
-    potassium: {
-      type: Number,
-    },
-    pH: {
-      type: Number,
-    }
-  },
-  crops: [{
-    type: String
-  }],
   cityName: {
     type: String
   },
@@ -44,6 +27,12 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Posts'
+    }
+  ],
+  inventory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Inventory'
     }
   ]
 });

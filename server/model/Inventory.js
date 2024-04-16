@@ -11,7 +11,7 @@ const inventorySchema = new mongoose.Schema({
   },
   season: {
     type: String,
-    enum: ['spring', 'summer', 'autumn', 'winter'],
+    enum: ['rabi', 'kharif', 'zaid'],
     required: true
   },
   year: {

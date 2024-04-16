@@ -13,7 +13,7 @@ function Home() {
     }, [])
     return (
         <div className="">
-            <h1 className="text-4xl font-bold text-center my-5">Home</h1>
+            <h1 className="text-4xl font-bold text-center my-16 text-gray-300"></h1>
             <div className="w-full h-[500px] py-10">
                 <div className="h-full w-4/5 md:w-3/5 mx-auto flex flex-col gap-3 sm:gap-6 md:gap-8 text-gray-100">
                     <div className="flex flex-row w-full h-1/2 gap-3 sm:gap-6 md:gap-8">
