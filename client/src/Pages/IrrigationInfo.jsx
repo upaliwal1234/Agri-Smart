@@ -17,13 +17,13 @@ function IrrigationInfo() {
     }, [crop]);
 
     const handleSearch = async () => {
-        // try {
-        //     const response = await axios.get(`${baseURL}/search/crop/autoComplete/${crop}`);
-        //     setSuggestions(Array.isArray(response.data) ? response.data : []);
-        //     console.log(suggestions);
-        // } catch (e) {
-        //     console.log(e);
-        // }
+        try {
+            const response = await axios.get(`${baseURL}/api/irrigation/search/autoComplete/${crop}`);
+            setSuggestions(Array.isArray(response.data) ? response.data : []);
+            console.log(suggestions);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const handleClick = async (e) => {
@@ -33,16 +33,16 @@ function IrrigationInfo() {
     }
 
     const fetchdata = async () => {
-        // try {
-        //     let response = await axios.get(`${baseURL}/search/crop/${crop}`);
-        //     console.log(response.data);
-        //     if (response.status === 200) {
-        //         let data = response.data;
-        //         setCrop('');
-        //     }
-        // } catch (err) {
-        //     console.error('Error in fetching data', err);
-        // }
+        try {
+            let response = await axios.get(`${baseURL}/api/irrigation/irrigationschedule/${crop}`);
+            console.log(response.data);
+            if (response.status === 200) {
+                let data = response.data;
+                setCrop(data);
+            }
+        } catch (err) {
+            console.error('Error in fetching data', err);
+        }
     }
 
     const handleSuggestionClick = (crop) => {
@@ -66,7 +66,7 @@ function IrrigationInfo() {
                 </form>
                 <ul className="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md w-[250px] mt-2">
                     {suggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion.name)}  className="pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900">
+                        <li key={index} onClick={() => handleSuggestionClick(suggestion.crop)}  className="pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900">
                             <svg className="absolute w-4 h-4 left-2 top-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                             </svg>
@@ -77,7 +77,7 @@ function IrrigationInfo() {
             </div>
             <div className="flex flex-col mt-8 p-4 bg-gray-100 border border-green-600 shadow-md rounded-lg">
                 <img
-                    src="https://via.placeholder.com/150"
+                    src={crop.imageURL}
                     alt="Irrigation"
                     className="w-48 m-4 h-48 self-center object-cover rounded-lg mb-8"
                 />
@@ -85,19 +85,19 @@ function IrrigationInfo() {
                     <div className="flex flex-row justify-around border border-black bg-green-600">
                         <label htmlFor="field1" className="text-lg self-center font-medium text-white">Field 1</label>
                         <div className="py-2 px-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
-                            Name of the crop
+                            {crop.crop}
                         </div>
                     </div>
                     <div className="flex flex-row justify-around border border-black bg-green-600">
                         <label htmlFor="field2" className="block self-center text-lg font-medium text-white">Field 2</label>
                         <div className="py-2 px-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
-                            Irrigation Method
+                            {crop.bestPractices}
                         </div>
                     </div>
                     <div className="flex flex-row justify-around border border-black bg-green-600">
                         <label htmlFor="field3" className="block text-lg self-center font-medium text-white">Field 3</label>
                         <div className="py-2 px-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
-                            Schedules
+                            {crop.schedule}
                         </div>
                     </div>
                 </div>
