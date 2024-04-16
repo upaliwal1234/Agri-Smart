@@ -3,6 +3,7 @@ const router = express.Router();
 const Posts = require('../model/Posts');
 const Reply = require('../model/Reply');
 const User = require('../model/User');
+
 router.get('/getPosts', async (req, res) => {
     try {
         const response = await Posts.find({});
