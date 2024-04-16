@@ -5,9 +5,10 @@ const Expenditure = require('../model/Expenditure');
 const Sales = require('../model/Sales');
 const User = require('../model/User');
 
-router.get('/inventory', async (req, res) => {
+router.get('/inventory/:userId', async (req, res) => {
   try {
-    const inventoryItems = await Inventory.find();
+    const { userId } = req.params;
+    const inventoryItems = await Inventory.find({ userId: userId });
     res.json(inventoryItems);
   } catch (err) {
     console.error(err);

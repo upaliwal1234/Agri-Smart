@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as d3 from 'd3';
+import { AppState } from '../Context/AgriProvider';
 
 function InventoryBox({ setForm }) {
     const [data, setData] = useState([]);
+    const { user, setIsLoading } = AppState();
 
+    const userId = user.id;
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5500/api/analysis/inventory');
+            const response = await axios.get(`http://127.0.0.1:5500/api/analysis/inventory/${userId}`);
             setData(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);

@@ -94,7 +94,7 @@ function IrrigationInfo() {
                     <div className=" p-4 rounded-lg  h-[400px]">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-1 h-full">
                             <div className="field flex flex-col border border-gray-400 ">
-                                <div htmlFor="field1" className="h-1/5 text-lg self-center font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Field 1</h1></div>
+                                <div htmlFor="field1" className="h-1/5 text-lg self-center font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Name</h1></div>
                                 <div className="h-4/5 py-2 px-4 flex justify-center items-center text-gray-700 bg-gray-200 border border-gray-300 ">
                                     <p className="text-center">
                                         {(crop.crop).toUpperCase()}
@@ -102,7 +102,7 @@ function IrrigationInfo() {
                                 </div>
                             </div>
                             <div className="field flex flex-col border border-gray-400 ">
-                                <div htmlFor="field2" className="h-1/5 self-center text-lg font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Field 2</h1></div>
+                                <div htmlFor="field2" className="h-1/5 self-center text-lg font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Best Practices</h1></div>
                                 <div className="h-4/5 py-2 px-4 flex justify-center items-center text-gray-700 bg-gray-200 border border-gray-300 ">
                                     <p className="">
                                         {crop.bestPractices}
@@ -110,7 +110,7 @@ function IrrigationInfo() {
                                 </div>
                             </div>
                             <div className="field flex flex-col border border-gray-400 ">
-                                <div htmlFor="field3" className="h-1/5 text-lg self-center font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Field 3</h1></div>
+                                <div htmlFor="field3" className="h-1/5 text-lg self-center font-medium text-white bg-green-600 w-full text-center flex justify-center items-center"><h1>Schedule</h1></div>
                                 <div className="h-4/5 py-2 px-4 flex justify-center items-center text-gray-700 bg-gray-200 border border-gray-300 ">
                                     <p className="">
                                         {crop.schedule}

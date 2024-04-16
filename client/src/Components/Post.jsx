@@ -77,7 +77,7 @@ function Post() {
                     <div className="flex flex-row gap-10">
                         <h1 className="text-xl font-semibold">Add a Reply</h1>
                         <div className="flex flex-col align-right gap-2 items-end">
-                            <textarea onChange={(e) => setText(e.target.value)} value={text} className="border rounded-md" name="name" id="" cols="70" rows="3"></textarea>
+                            <textarea onChange={(e) => setText(e.target.value)} value={text} className="border rounded-md p-2" name="name" id="" cols="70" rows="3"></textarea>
                             <button onClick={handleReply} className="w-12 rounded p-1 bg-[#2b9348] text-white">Add</button>
                         </div>
                     </div>
