@@ -50,7 +50,7 @@ function AddPosts() {
                     onSubmit={handleAddPost}
                     className="group"
                 >
-                    
+
                     <div className="mt-4">
                         <label
                             htmlFor="title"

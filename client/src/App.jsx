@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import AddPosts from './Components/AddPosts'
 import 'react-toastify/dist/ReactToastify.css';
 import CommunityForum from './Pages/CommunityForum'
-
+import Post from './Components/Post'
 
 function App() {
   const { isLoading } = AppState();
@@ -52,7 +52,8 @@ function App() {
         <Route path='/weatherInfo' element={<WeatherInfo />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/communityforum' element={<CommunityForum />} />
-        <Route path='/communityforum/addpost' element={<AddPosts />} />
+        <Route path='/communityforum/communityforum/addpost' element={<AddPosts />} />
+        <Route path='/communityforum/post/:id' element={<Post />} />
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
       </Routes>
       <ToastContainer />
