@@ -7,6 +7,7 @@ const inventoryRoutes = require('./routes/inventoryRoutes');
 const cors = require('cors');
 const mlRoutes = require('./routes/mlRoutes');
 const communityForumRoutes = require('./routes/communityForumRoutes');
+const irrigationRoutes = require('./routes/irrigationRoutes');
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use('/api/user', userRoutes);
 app.use('/api/analysis', inventoryRoutes);
 app.use('/api/predict', mlRoutes);
 app.use('/api/posts',communityForumRoutes);
+app.use('/api/irrigation', irrigationRoutes);
+
 const PORT = process.env.PORT;
 app.listen(PORT, (err) => {
     if (err) {
