@@ -22,7 +22,6 @@ function AddPosts() {
         try {
             const response = await axios.post(`${baseURL}/api/posts/addPost`, {
                 id: user.id,
-                name: name,
                 title: title,
                 text: text
             });

@@ -52,7 +52,7 @@ function App() {
         <Route path='/weatherInfo' element={<WeatherInfo />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/communityforum' element={<CommunityForum />} />
-        <Route path='/addpost' element={<AddPosts />} />
+        <Route path='/communityforum/addpost' element={<AddPosts />} />
         <Route path='/irrigationinfo' element={<IrrigationInfo />} />
       </Routes>
       <ToastContainer />
