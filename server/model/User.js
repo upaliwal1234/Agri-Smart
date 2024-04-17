@@ -17,12 +17,6 @@ const userSchema = new mongoose.Schema({
   cityName: {
     type: String
   },
-  stateCode: {
-    type: String,
-  },
-  countryCode: {
-    type: String,
-  },
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
